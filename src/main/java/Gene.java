@@ -3,6 +3,9 @@ import java.util.Scanner;
 public class Gene {
     public static final String SPACING = "    ";
     private static final String LINE = SPACING + "____________________________";
+    private static final int MAX_TASKS = 100;
+    private final Task[] tasks = new Task[MAX_TASKS];
+    private int currentTask = 0;
 
     public static void printFormatResponse(String s){
         System.out.println(LINE);
@@ -14,9 +17,40 @@ public class Gene {
             SPACING + "Hello! I'm Gene\n" +
             SPACING + "What can I do for you?";
 
+    public void addTask(String s){
+        tasks[currentTask] = new Task(s);
+        currentTask += 1;
+        printFormatResponse(String.format("%s added: %s", SPACING, s));
+    }
+
+    public void markTask(int i){
+        i -= 1;
+        tasks[i].mark();
+        printFormatResponse(String.format("Nice! I've marked this task as done:\n%s%s", SPACING, tasks[i].toString()));
+    }
+
+    public void unmarkTask(int i){
+        i -= 1;
+        tasks[i].unmark();
+        printFormatResponse(String.format("OK, I've marked this task as not done yet:\n%s%s", SPACING, tasks[i].toString()));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < tasks.length; i++) {
+            if (tasks[i] == null) break;
+            res.append(String.format("%s %d. %s", SPACING, i + 1, tasks[i].toString()));
+            if (i + 1 < tasks.length && tasks[i + 1] != null) {
+                res.append(System.lineSeparator());
+            }
+        }
+        return res.toString();
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Tasks tasks = new Tasks();
+        Gene gene = new Gene();
         printFormatResponse(greeting);
         while (true){
             String input = sc.nextLine();
@@ -26,16 +60,16 @@ public class Gene {
                 break;
             }
             else if (input.equals("list")) {
-                printFormatResponse(tasks.toString());
+                printFormatResponse(gene.toString());
             }
             else if(inputArr[0].equals("mark")){
-                tasks.markTask(Integer.parseInt(inputArr[1]));
+                gene.markTask(Integer.parseInt(inputArr[1]));
             }
             else if(inputArr[0].equals("unmark")){
-                tasks.unmarkTask(Integer.parseInt(inputArr[1]));
+                gene.unmarkTask(Integer.parseInt(inputArr[1]));
             }
             else {
-                tasks.addTask(input);
+                gene.addTask(input);
             }
         }
     }
