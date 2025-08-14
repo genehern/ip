@@ -24,7 +24,7 @@ public class Gene {
                printFormatResponse("Bye. Hope to see you again soon!");
                 break;
             }
-            if (input.equals("list")){
+            else if (input.equals("list")) {
                 printFormatResponse(tasks.toString());
             }
             else {
