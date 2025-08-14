@@ -9,11 +9,15 @@ public class Tasks {
     }
 
     public void markTask(int i){
+        i -= 1;
         tasks[i].mark();
+        Gene.printFormatResponse(String.format("Nice! I've marked this task as done:\n%s%s", Gene.SPACING, tasks[i].toString()));
     }
 
-    public void unMarkTask(int i){
-        tasks[i].unMark();
+    public void unmarkTask(int i){
+        i -= 1;
+        tasks[i].unmark();
+        Gene.printFormatResponse(String.format("OK, I've marked this task as not done yet:\n%s%s", Gene.SPACING, tasks[i].toString()));
     }
 
     @Override

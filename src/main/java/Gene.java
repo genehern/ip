@@ -20,12 +20,19 @@ public class Gene {
         printFormatResponse(greeting);
         while (true){
             String input = sc.nextLine();
+            String[] inputArr = input.split(" ");
             if (input.equals("bye")) {
                printFormatResponse("Bye. Hope to see you again soon!");
                 break;
             }
             else if (input.equals("list")) {
                 printFormatResponse(tasks.toString());
+            }
+            else if(inputArr[0].equals("mark")){
+                tasks.markTask(Integer.parseInt(inputArr[1]));
+            }
+            else if(inputArr[0].equals("unmark")){
+                tasks.unmarkTask(Integer.parseInt(inputArr[1]));
             }
             else {
                 tasks.addTask(input);
