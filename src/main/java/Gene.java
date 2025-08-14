@@ -17,10 +17,11 @@ public class Gene {
             SPACING + "Hello! I'm Gene\n" +
             SPACING + "What can I do for you?";
 
-    public void addTask(String s){
-        tasks[currentTask] = new Task(s);
+    public void addTask(Task task){
+        tasks[currentTask] = task;
         currentTask += 1;
-        printFormatResponse(String.format("%s added: %s", SPACING, s));
+        printFormatResponse(String.format("%sGot it. I've added this task:\n%s   %s\n%sNow you have %d tasks in the list.",
+         SPACING, SPACING, task.toString(), SPACING, currentTask));
     }
 
     public void markTask(int i){
@@ -54,7 +55,7 @@ public class Gene {
         printFormatResponse(greeting);
         while (true){
             String input = sc.nextLine();
-            String[] inputArr = input.split(" ");
+            String[] inputArr = input.split(" ", 2); // split into at most 2 parts
             if (input.equals("bye")) {
                printFormatResponse("Bye. Hope to see you again soon!");
                 break;
@@ -68,8 +69,29 @@ public class Gene {
             else if(inputArr[0].equals("unmark")){
                 gene.unmarkTask(Integer.parseInt(inputArr[1]));
             }
-            else {
-                gene.addTask(input);
+            else if(inputArr[0].equals("todo")){
+                gene.addTask(new TodoTask(inputArr[1]));
+            }
+            else if(inputArr[0].equals("deadline")){
+                String[] parts = inputArr[1].split(" /by ", 2);
+                if (parts.length < 2) {
+                    printFormatResponse("Invalid deadline format. Use: deadline <description> /by <date>");
+                } else {
+                    gene.addTask(new DeadlineTask(parts[0], parts[1]));
+                }
+            }
+            else if(inputArr[0].equals("event")){
+                String[] fromSplit = inputArr[1].split(" /from ", 2);
+                if (fromSplit.length < 2) {
+                    printFormatResponse("Invalid event format. Use: event <description> /from <start> /to <end>");
+                } else {
+                    String[] toSplit = fromSplit[1].split(" /to ", 2);
+                    if (toSplit.length < 2) {
+                        printFormatResponse("Invalid event format. Use: event <description> /from <start> /to <end>");
+                    } else {
+                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1]));
+                    }
+                }
             }
         }
     }
