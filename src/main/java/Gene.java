@@ -66,41 +66,52 @@ public class Gene {
             String input = sc.nextLine();
             String[] inputArr = input.split(" ", 2);
             try {
-                if (input.equals("bye")) {
-                    printFormatResponse("Bye. Hope to see you again soon!");
-                    break;
-                } else if (input.equals("list")) {
-                    printFormatResponse(gene.toString());
-                } else if (inputArr[0].equals("mark")) {
-                    gene.markTask(Integer.parseInt(inputArr[1]));
-                } else if (inputArr[0].equals("unmark")) {
-                    gene.unmarkTask(Integer.parseInt(inputArr[1]));
-                } else if (inputArr[0].equals("delete")) {
-                    gene.deleteTask(Integer.parseInt(inputArr[1]));
-                } else if (inputArr[0].equals("todo")) {
-                    if (inputArr.length < 2) {
-                        throw new EmptyTodoException();
-                    }
-                    gene.addTask(new TodoTask(inputArr[1]));
-                } else if (inputArr[0].equals("deadline")) {
-                    String[] parts = inputArr[1].split(" /by ", 2);
-                    if (parts.length < 2) {
-                        throw new InvalidDeadlineException();
-                    } else {
-                        gene.addTask(new DeadlineTask(parts[0], parts[1]));
-                    }
-                } else if (inputArr[0].equals("event")) {
-                    String[] fromSplit = inputArr[1].split(" /from ", 2);
-                    if (fromSplit.length < 2) {
-                        throw new InvalidEventException();
-                    }
-                    String[] toSplit = fromSplit[1].split(" /to ", 2);
-                    if (toSplit.length < 2) {
-                        throw new InvalidEventException();
-                    }
-                    gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1]));
-                } else {
-                    System.out.println(SPACING + "I'm sorry, but I don't know what that means :-(");
+                String commandStr = inputArr[0].toUpperCase();
+                Commands command = Commands.valueOf(commandStr);
+
+                switch (command) {
+                    case BYE:
+                        printFormatResponse("Bye. Hope to see you again soon!");
+                        return;
+                    case LIST:
+                        printFormatResponse(gene.toString());
+                        break;
+                    case MARK:
+                        gene.markTask(Integer.parseInt(inputArr[1]));
+                        break;
+                    case UNMARK:
+                        gene.unmarkTask(Integer.parseInt(inputArr[1]));
+                        break;
+                    case DELETE:
+                        gene.deleteTask(Integer.parseInt(inputArr[1]));
+                        break;
+                    case TODO:
+                        if (inputArr.length < 2) {
+                            throw new EmptyTodoException();
+                        }
+                        gene.addTask(new TodoTask(inputArr[1]));
+                        break;
+                    case DEADLINE:
+                        String[] parts = inputArr[1].split(" /by ", 2);
+                        if (parts.length < 2) {
+                            throw new InvalidDeadlineException();
+                        } else {
+                            gene.addTask(new DeadlineTask(parts[0], parts[1]));
+                        }
+                        break;
+                    case EVENT:
+                        String[] fromSplit = inputArr[1].split(" /from ", 2);
+                        if (fromSplit.length < 2) {
+                            throw new InvalidEventException();
+                        }
+                        String[] toSplit = fromSplit[1].split(" /to ", 2);
+                        if (toSplit.length < 2) {
+                            throw new InvalidEventException();
+                        }
+                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1]));
+                        break;
+                    default:
+                        System.out.println(SPACING + "I'm sorry, but I don't know what that means :-(");
                 }
             } catch (Exception e) {
                 printFormatResponse(SPACING + e.getMessage());
