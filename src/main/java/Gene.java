@@ -1,15 +1,12 @@
-import Exceptions.EmptyTodoException;
-import Exceptions.InvalidDeadlineException;
-import Exceptions.InvalidEventException;
+import Exceptions.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Gene {
     public static final String SPACING = "    ";
     private static final String LINE = SPACING + "____________________________";
-    private static final int MAX_TASKS = 100;
-    private final Task[] tasks = new Task[MAX_TASKS];
-    private int currentTask = 0;
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printFormatResponse(String s) {
         System.out.println(LINE);
@@ -22,31 +19,39 @@ public class Gene {
                     SPACING + "What can I do for you?";
 
     public void addTask(Task task) {
-        tasks[currentTask] = task;
-        currentTask += 1;
+        tasks.add(task);
         printFormatResponse(String.format("%sGot it. I've added this task:\n%s   %s\n%sNow you have %d tasks in the list.",
-                SPACING, SPACING, task.toString(), SPACING, currentTask));
+                SPACING, SPACING, task.toString(), SPACING, tasks.size()));
     }
 
     public void markTask(int i) {
-        i -= 1;
-        tasks[i].mark();
-        printFormatResponse(String.format("Nice! I've marked this task as done:\n%s%s", SPACING, tasks[i].toString()));
+        int idx = i - 1;
+        tasks.get(idx).mark();
+        printFormatResponse(String.format("Nice! I've marked this task as done:\n%s%s", SPACING, tasks.get(idx).toString()));
     }
 
     public void unmarkTask(int i) {
-        i -= 1;
-        tasks[i].unmark();
-        printFormatResponse(String.format("OK, I've marked this task as not done yet:\n%s%s", SPACING, tasks[i].toString()));
+        int idx = i - 1;
+        tasks.get(idx).unmark();
+        printFormatResponse(String.format("OK, I've marked this task as not done yet:\n%s%s", SPACING, tasks.get(idx).toString()));
+    }
+
+    public void deleteTask(int i) throws TaskOutOfRangeException {
+        int idx = i - 1;
+        if (idx < 0 || idx >= tasks.size()) {
+            throw new TaskOutOfRangeException();
+        }
+        Task removed = tasks.remove(idx);
+        printFormatResponse(String.format("%sNoted. I've removed this task:\n%s   %s\n%sNow you have %d tasks in the list.",
+                SPACING, SPACING, removed.toString(), SPACING, tasks.size()));
     }
 
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        for (int i = 0; i < tasks.length; i++) {
-            if (tasks[i] == null) break;
-            res.append(String.format("%s %d. %s", SPACING, i + 1, tasks[i].toString()));
-            if (i + 1 < tasks.length && tasks[i + 1] != null) {
+        for (int i = 0; i < tasks.size(); i++) {
+            res.append(String.format("%s %d. %s", SPACING, i + 1, tasks.get(i).toString()));
+            if (i + 1 < tasks.size()) {
                 res.append(System.lineSeparator());
             }
         }
@@ -70,6 +75,8 @@ public class Gene {
                     gene.markTask(Integer.parseInt(inputArr[1]));
                 } else if (inputArr[0].equals("unmark")) {
                     gene.unmarkTask(Integer.parseInt(inputArr[1]));
+                } else if (inputArr[0].equals("delete")) {
+                    gene.deleteTask(Integer.parseInt(inputArr[1]));
                 } else if (inputArr[0].equals("todo")) {
                     if (inputArr.length < 2) {
                         throw new EmptyTodoException();
@@ -78,7 +85,7 @@ public class Gene {
                 } else if (inputArr[0].equals("deadline")) {
                     String[] parts = inputArr[1].split(" /by ", 2);
                     if (parts.length < 2) {
-                        throw new InvalidEventException();
+                        throw new InvalidDeadlineException();
                     } else {
                         gene.addTask(new DeadlineTask(parts[0], parts[1]));
                     }
@@ -92,6 +99,8 @@ public class Gene {
                         throw new InvalidEventException();
                     }
                     gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1]));
+                } else {
+                    System.out.println(SPACING + "I'm sorry, but I don't know what that means :-(");
                 }
             } catch (Exception e) {
                 printFormatResponse(SPACING + e.getMessage());
