@@ -6,10 +6,12 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 public class Gene {
     public static final String SPACING = "    ";
     private static final String LINE = SPACING + "____________________________";
+    public static final String FILE_PATH = "./data/gene.txt";
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printFormatResponse(String s) {
@@ -98,7 +100,19 @@ public class Gene {
             }
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + filename);
+            System.out.println("Database file not found: " + filename);
+        }
+    }
+
+    public void saveTasksToFile(String filename) {
+        try {
+            FileWriter writer = new FileWriter(filename);
+            for (Task task : tasks) {
+                writer.write(task.toDbString() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
         }
     }
 
@@ -107,7 +121,7 @@ public class Gene {
         Gene gene = new Gene();
         printFormatResponse(greeting);
 
-        gene.loadTasksFromFile("./data/gene.txt");
+        gene.loadTasksFromFile(FILE_PATH);
 
         while (true) {
             String input = sc.nextLine();
@@ -158,6 +172,7 @@ public class Gene {
                         gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                         break;
                 }
+                gene.saveTasksToFile(FILE_PATH);
             } catch (IllegalArgumentException e) {
                 printFormatResponse(SPACING + "I'm sorry, but I don't know what that means :-(");
             } catch (Exception e) {
