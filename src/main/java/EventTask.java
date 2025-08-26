@@ -9,7 +9,13 @@ public class EventTask extends Task {
     }
 
     @Override
+    public String toDbString() {
+        return String.format("%s | %d | %s | %s | %s", Commands.EVENT, isDone ? 1 : 0, description, from, to);
+    }
+
+    @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description, from, to);
     }
 }
+

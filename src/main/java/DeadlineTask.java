@@ -7,6 +7,11 @@ public class DeadlineTask extends Task {
     }
 
     @Override
+    public String toDbString() {
+        return String.format("%s| %d | %s | %s", Commands.DEADLINE, isDone ? 1 : 0, description, by);
+    }
+
+    @Override
     public String toString() {
         return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, by);
     }
