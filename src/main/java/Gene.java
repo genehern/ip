@@ -3,9 +3,15 @@ import Exceptions.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.io.FileWriter;
+
 public class Gene {
     public static final String SPACING = "    ";
     private static final String LINE = SPACING + "____________________________";
+    public static final String FILE_PATH = "./data/gene.txt";
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     public static void printFormatResponse(String s) {
@@ -58,10 +64,65 @@ public class Gene {
         return res.toString();
     }
 
+    public void loadTasksFromFile(String filename) {
+        try {
+            File file = new File(filename);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+                String type = parts[0].trim();
+                boolean isMarked = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+                String firstDate = parts.length > 3 ? parts[3].trim() : "";
+                String secondDate = parts.length > 4 ? parts[4].trim() : "";
+                Task task = null;
+                try {
+                    Commands commandType = Commands.valueOf(type);
+                    switch (commandType) {
+                        case TODO:
+                            task = new TodoTask(description, isMarked);
+                            break;
+                        case DEADLINE:
+                            task = new DeadlineTask(description, firstDate, isMarked);
+                            if (isMarked) task.mark();
+                            break;
+                        case EVENT:
+                            task = new EventTask(description, firstDate, secondDate, isMarked);
+                            break;
+                        default:
+                            continue;
+                    }
+                } catch (IllegalArgumentException e) {
+                    continue;
+                }
+                tasks.add(task);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Database file not found: " + filename);
+        }
+    }
+
+    public void saveTasksToFile(String filename) {
+        try {
+            FileWriter writer = new FileWriter(filename);
+            for (Task task : tasks) {
+                writer.write(task.toDbString() + System.lineSeparator());
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Gene gene = new Gene();
         printFormatResponse(greeting);
+
+        gene.loadTasksFromFile(FILE_PATH);
+
         while (true) {
             String input = sc.nextLine();
             String[] inputArr = input.split(" ", 2);
@@ -89,14 +150,14 @@ public class Gene {
                         if (inputArr.length < 2) {
                             throw new EmptyTodoException();
                         }
-                        gene.addTask(new TodoTask(inputArr[1]));
+                        gene.addTask(new TodoTask(inputArr[1], false));
                         break;
                     case DEADLINE:
                         String[] parts = inputArr[1].split(" /by ", 2);
                         if (parts.length < 2) {
                             throw new InvalidDeadlineException();
                         } else {
-                            gene.addTask(new DeadlineTask(parts[0], parts[1]));
+                            gene.addTask(new DeadlineTask(parts[0], parts[1], false));
                         }
                         break;
                     case EVENT:
@@ -108,11 +169,12 @@ public class Gene {
                         if (toSplit.length < 2) {
                             throw new InvalidEventException();
                         }
-                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1]));
+                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                         break;
-                    default:
-                        System.out.println(SPACING + "I'm sorry, but I don't know what that means :-(");
                 }
+                gene.saveTasksToFile(FILE_PATH);
+            } catch (IllegalArgumentException e) {
+                printFormatResponse(SPACING + "I'm sorry, but I don't know what that means :-(");
             } catch (Exception e) {
                 printFormatResponse(SPACING + e.getMessage());
             }

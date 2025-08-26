@@ -2,10 +2,15 @@ public class EventTask extends Task {
     protected String from;
     protected String to;
 
-    public EventTask(String description, String from, String to) {
-        super(description);
+    public EventTask(String description, String from, String to, boolean b) {
+        super(description, b);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String toDbString() {
+        return String.format("%s | %d | %s | %s | %s", Commands.EVENT, isDone ? 1 : 0, description, from, to);
     }
 
     @Override
@@ -13,3 +18,4 @@ public class EventTask extends Task {
         return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description, from, to);
     }
 }
+

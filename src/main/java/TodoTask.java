@@ -1,6 +1,11 @@
-public class TodoTask extends Task{
-    public TodoTask(String s){
-        super(s);
+public class TodoTask extends Task {
+    public TodoTask(String s, boolean b) {
+        super(s, b);
+    }
+
+    @Override
+    public String toDbString() {
+        return String.format("%s | %d | %s", Commands.TODO, isDone ? 1 : 0, description);
     }
 
     @Override
