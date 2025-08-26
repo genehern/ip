@@ -89,14 +89,14 @@ public class Gene {
                         if (inputArr.length < 2) {
                             throw new EmptyTodoException();
                         }
-                        gene.addTask(new TodoTask(inputArr[1]));
+                        gene.addTask(new TodoTask(inputArr[1], false));
                         break;
                     case DEADLINE:
                         String[] parts = inputArr[1].split(" /by ", 2);
                         if (parts.length < 2) {
                             throw new InvalidDeadlineException();
                         } else {
-                            gene.addTask(new DeadlineTask(parts[0], parts[1]));
+                            gene.addTask(new DeadlineTask(parts[0], parts[1], false));
                         }
                         break;
                     case EVENT:

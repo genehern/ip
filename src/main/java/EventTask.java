@@ -2,8 +2,8 @@ public class EventTask extends Task {
     protected String from;
     protected String to;
 
-    public EventTask(String description, String from, String to) {
-        super(description);
+    public EventTask(String description, String from, String to, boolean b) {
+        super(description, b);
         this.from = from;
         this.to = to;
     }
