@@ -3,6 +3,10 @@ import Exceptions.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Gene {
     public static final String SPACING = "    ";
     private static final String LINE = SPACING + "____________________________";
@@ -151,11 +155,11 @@ public class Gene {
                         if (toSplit.length < 2) {
                             throw new InvalidEventException();
                         }
-                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1]));
+                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                         break;
-                    default:
-                        System.out.println(SPACING + "I'm sorry, but I don't know what that means :-(");
                 }
+            } catch (IllegalArgumentException e) {
+                printFormatResponse(SPACING + "I'm sorry, but I don't know what that means :-(");
             } catch (Exception e) {
                 printFormatResponse(SPACING + e.getMessage());
             }
