@@ -58,10 +58,53 @@ public class Gene {
         return res.toString();
     }
 
+    public void loadTasksFromFile(String filename) {
+        try {
+            File file = new File(filename);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+                String type = parts[0].trim();
+                boolean isMarked = parts[1].trim().equals("1");
+                String description = parts[2].trim();
+                String firstDate = parts.length > 3 ? parts[3].trim() : "";
+                String secondDate = parts.length > 4 ? parts[4].trim() : "";
+                Task task = null;
+                try {
+                    Commands commandType = Commands.valueOf(type);
+                    switch (commandType) {
+                        case TODO:
+                            task = new TodoTask(description, isMarked);
+                            break;
+                        case DEADLINE:
+                            task = new DeadlineTask(description, firstDate, isMarked);
+                            if (isMarked) task.mark();
+                            break;
+                        case EVENT:
+                            task = new EventTask(description, firstDate, secondDate, isMarked);
+                            break;
+                        default:
+                            continue;
+                    }
+                } catch (IllegalArgumentException e) {
+                    continue;
+                }
+                tasks.add(task);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Gene gene = new Gene();
         printFormatResponse(greeting);
+
+        gene.loadTasksFromFile("./data/gene.txt");
+
         while (true) {
             String input = sc.nextLine();
             String[] inputArr = input.split(" ", 2);
