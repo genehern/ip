@@ -1,7 +1,13 @@
-import Exceptions.*;
+import Exceptions.EmptyTodoException;
+import Exceptions.InvalidDeadlineException;
+import Exceptions.InvalidEventException;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import Enums.Commands;
+import Tasks.DeadlineTask;
+import Tasks.EventTask;
+import Tasks.Task;
+import Tasks.TodoTask;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,59 +15,17 @@ import java.util.Scanner;
 import java.io.FileWriter;
 
 public class Gene {
-    public static final String SPACING = "    ";
-    private static final String LINE = SPACING + "____________________________";
     public static final String FILE_PATH = "./data/gene.txt";
-    private final ArrayList<Task> tasks = new ArrayList<>();
-
-    public static void printFormatResponse(String s) {
-        System.out.println(LINE);
-        System.out.println(s);
-        System.out.println(LINE);
-    }
+    private final TaskList tasksList = new TaskList();
+    private final Ui ui = new Ui();
 
     private static final String greeting =
-            SPACING + "Hello! I'm Gene\n" +
-                    SPACING + "What can I do for you?";
-
-    public void addTask(Task task) {
-        tasks.add(task);
-        printFormatResponse(String.format("%sGot it. I've added this task:\n%s   %s\n%sNow you have %d tasks in the list.",
-                SPACING, SPACING, task.toString(), SPACING, tasks.size()));
-    }
-
-    public void markTask(int i) {
-        int idx = i - 1;
-        tasks.get(idx).mark();
-        printFormatResponse(String.format("Nice! I've marked this task as done:\n%s%s", SPACING, tasks.get(idx).toString()));
-    }
-
-    public void unmarkTask(int i) {
-        int idx = i - 1;
-        tasks.get(idx).unmark();
-        printFormatResponse(String.format("OK, I've marked this task as not done yet:\n%s%s", SPACING, tasks.get(idx).toString()));
-    }
-
-    public void deleteTask(int i) throws TaskOutOfRangeException {
-        int idx = i - 1;
-        if (idx < 0 || idx >= tasks.size()) {
-            throw new TaskOutOfRangeException();
-        }
-        Task removed = tasks.remove(idx);
-        printFormatResponse(String.format("%sNoted. I've removed this task:\n%s   %s\n%sNow you have %d tasks in the list.",
-                SPACING, SPACING, removed.toString(), SPACING, tasks.size()));
-    }
+            Ui.SPACING + "Hello! I'm Gene\n" +
+                    Ui.SPACING + "What can I do for you?";
 
     @Override
     public String toString() {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            res.append(String.format("%s %d. %s", SPACING, i + 1, tasks.get(i).toString()));
-            if (i + 1 < tasks.size()) {
-                res.append(System.lineSeparator());
-            }
-        }
-        return res.toString();
+        return this.tasksList.toString();
     }
 
     public void loadTasksFromFile(String filename) {
@@ -96,7 +60,7 @@ public class Gene {
                 } catch (IllegalArgumentException e) {
                     continue;
                 }
-                tasks.add(task);
+                this.tasksList.addTask(task);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -107,7 +71,7 @@ public class Gene {
     public void saveTasksToFile(String filename) {
         try {
             FileWriter writer = new FileWriter(filename);
-            for (Task task : tasks) {
+            for (Task task : this.tasksList) {
                 writer.write(task.toDbString() + System.lineSeparator());
             }
             writer.close();
@@ -119,7 +83,7 @@ public class Gene {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Gene gene = new Gene();
-        printFormatResponse(greeting);
+        gene.ui.printFormatResponse(greeting);
 
         gene.loadTasksFromFile(FILE_PATH);
 
@@ -129,35 +93,34 @@ public class Gene {
             try {
                 String commandStr = inputArr[0].toUpperCase();
                 Commands command = Commands.valueOf(commandStr);
-
                 switch (command) {
                     case BYE:
-                        printFormatResponse("Bye. Hope to see you again soon!");
+                        gene.ui.printFormatResponse("Bye. Hope to see you again soon!");
                         return;
                     case LIST:
-                        printFormatResponse(gene.toString());
+                        gene.ui.printFormatResponse(gene.toString());
                         break;
                     case MARK:
-                        gene.markTask(Integer.parseInt(inputArr[1]));
+                        gene.ui.printFormatResponse(gene.tasksList.markTask(Integer.parseInt(inputArr[1])));
                         break;
                     case UNMARK:
-                        gene.unmarkTask(Integer.parseInt(inputArr[1]));
+                        gene.ui.printFormatResponse(gene.tasksList.unmarkTask(Integer.parseInt(inputArr[1])));
                         break;
                     case DELETE:
-                        gene.deleteTask(Integer.parseInt(inputArr[1]));
+                        gene.ui.printFormatResponse(gene.tasksList.deleteTask(Integer.parseInt(inputArr[1])));
                         break;
                     case TODO:
                         if (inputArr.length < 2) {
                             throw new EmptyTodoException();
                         }
-                        gene.addTask(new TodoTask(inputArr[1], false));
+                        gene.ui.printFormatResponse(gene.tasksList.addTask(new TodoTask(inputArr[1], false)));
                         break;
                     case DEADLINE:
                         String[] parts = inputArr[1].split(" /by ", 2);
                         if (parts.length < 2) {
                             throw new InvalidDeadlineException();
                         } else {
-                            gene.addTask(new DeadlineTask(parts[0], parts[1], false));
+                            gene.ui.printFormatResponse(gene.tasksList.addTask(new DeadlineTask(parts[0], parts[1], false)));
                         }
                         break;
                     case EVENT:
@@ -169,14 +132,14 @@ public class Gene {
                         if (toSplit.length < 2) {
                             throw new InvalidEventException();
                         }
-                        gene.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
+                        gene.tasksList.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                         break;
                 }
-                gene.saveTasksToFile(FILE_PATH);
+                //gene.saveTasksToFile(FILE_PATH);
             } catch (IllegalArgumentException e) {
-                printFormatResponse(SPACING + "I'm sorry, but I don't know what that means :-(");
+                gene.ui.printFormatResponse(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
             } catch (Exception e) {
-                printFormatResponse(SPACING + e.getMessage());
+                gene.ui.printFormatResponse(Ui.SPACING + e.getMessage());
             }
         }
     }

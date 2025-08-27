@@ -1,3 +1,7 @@
+package Tasks;
+
+import Enums.Commands;
+
 public class TodoTask extends Task {
     public TodoTask(String s, boolean b) {
         super(s, b);

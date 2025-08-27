@@ -1,5 +1,8 @@
-import java.time.LocalDate;
+package Tasks;
+
 import java.time.LocalDateTime;
+
+import Enums.Commands;
 
 public class EventTask extends Task {
     protected LocalDateTime from;
@@ -21,4 +24,3 @@ public class EventTask extends Task {
         return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description, this.dateTimeToString(from), this.dateTimeToString(to));
     }
 }
-
