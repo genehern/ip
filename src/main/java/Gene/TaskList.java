@@ -1,5 +1,7 @@
-import Exceptions.TaskOutOfRangeException;
-import Tasks.Task;
+package Gene;
+
+import Gene.Exceptions.TaskOutOfRangeException;
+import Gene.Tasks.Task;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,10 @@
-import Enums.Commands;
-import Tasks.DeadlineTask;
-import Tasks.EventTask;
-import Tasks.Task;
-import Tasks.TodoTask;
+package Gene;
+
+import Gene.Enums.Commands;
+import Gene.Tasks.DeadlineTask;
+import Gene.Tasks.EventTask;
+import Gene.Tasks.Task;
+import Gene.Tasks.TodoTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package Exceptions;
+package Gene.Exceptions;
 
 public class EmptyTodoException extends CreateTaskException {
     public EmptyTodoException() {

@@ -1,8 +1,8 @@
-package Tasks;
+package Gene.Tasks;
 
 import java.time.LocalDateTime;
 
-import Enums.Commands;
+import Gene.Enums.Commands;
 
 public class EventTask extends Task {
     protected LocalDateTime from;
