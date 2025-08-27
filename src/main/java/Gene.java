@@ -80,12 +80,12 @@ public class Gene {
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         Scanner sc = new Scanner(System.in);
-        Gene gene = new Gene();
-        gene.ui.printFormatResponse(greeting);
 
-        gene.loadTasksFromFile(FILE_PATH);
+        this.ui.printFormatResponse(greeting);
+
+        this.loadTasksFromFile(FILE_PATH);
 
         while (true) {
             String input = sc.nextLine();
@@ -95,32 +95,32 @@ public class Gene {
                 Commands command = Commands.valueOf(commandStr);
                 switch (command) {
                     case BYE:
-                        gene.ui.printFormatResponse("Bye. Hope to see you again soon!");
+                        this.ui.printFormatResponse("Bye. Hope to see you again soon!");
                         return;
                     case LIST:
-                        gene.ui.printFormatResponse(gene.toString());
+                        this.ui.printFormatResponse(this.toString());
                         break;
                     case MARK:
-                        gene.ui.printFormatResponse(gene.tasksList.markTask(Integer.parseInt(inputArr[1])));
+                        this.ui.printFormatResponse(this.tasksList.markTask(Integer.parseInt(inputArr[1])));
                         break;
                     case UNMARK:
-                        gene.ui.printFormatResponse(gene.tasksList.unmarkTask(Integer.parseInt(inputArr[1])));
+                        this.ui.printFormatResponse(this.tasksList.unmarkTask(Integer.parseInt(inputArr[1])));
                         break;
                     case DELETE:
-                        gene.ui.printFormatResponse(gene.tasksList.deleteTask(Integer.parseInt(inputArr[1])));
+                        this.ui.printFormatResponse(this.tasksList.deleteTask(Integer.parseInt(inputArr[1])));
                         break;
                     case TODO:
                         if (inputArr.length < 2) {
                             throw new EmptyTodoException();
                         }
-                        gene.ui.printFormatResponse(gene.tasksList.addTask(new TodoTask(inputArr[1], false)));
+                        this.ui.printFormatResponse(this.tasksList.addTask(new TodoTask(inputArr[1], false)));
                         break;
                     case DEADLINE:
                         String[] parts = inputArr[1].split(" /by ", 2);
                         if (parts.length < 2) {
                             throw new InvalidDeadlineException();
                         } else {
-                            gene.ui.printFormatResponse(gene.tasksList.addTask(new DeadlineTask(parts[0], parts[1], false)));
+                            this.ui.printFormatResponse(this.tasksList.addTask(new DeadlineTask(parts[0], parts[1], false)));
                         }
                         break;
                     case EVENT:
@@ -132,15 +132,19 @@ public class Gene {
                         if (toSplit.length < 2) {
                             throw new InvalidEventException();
                         }
-                        gene.tasksList.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
+                        this.tasksList.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                         break;
                 }
                 //gene.saveTasksToFile(FILE_PATH);
             } catch (IllegalArgumentException e) {
-                gene.ui.printFormatResponse(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
+                this.ui.printFormatResponse(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
             } catch (Exception e) {
-                gene.ui.printFormatResponse(Ui.SPACING + e.getMessage());
+                this.ui.printFormatResponse(Ui.SPACING + e.getMessage());
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Gene().run();
     }
 }
