@@ -1,3 +1,4 @@
+import Exceptions.CreateTaskException;
 import Exceptions.EmptyTodoException;
 import Exceptions.InvalidDeadlineException;
 import Exceptions.InvalidEventException;
@@ -30,7 +31,6 @@ public class Gene {
         Scanner sc = new Scanner(System.in);
 
         this.ui.printGreeting();
-
 
         while (true) {
             String input = sc.nextLine();
@@ -82,7 +82,7 @@ public class Gene {
                 }
             } catch (IllegalArgumentException e) {
                 this.ui.printFormatResponse(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
-            } catch (Exception e) {
+            } catch (CreateTaskException e) {
                 this.ui.printFormatResponse(Ui.SPACING + e.getMessage());
             }
         }
