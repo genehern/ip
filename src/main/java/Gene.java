@@ -5,87 +5,32 @@ import Exceptions.InvalidEventException;
 import Enums.Commands;
 import Tasks.DeadlineTask;
 import Tasks.EventTask;
-import Tasks.Task;
 import Tasks.TodoTask;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.io.FileWriter;
+
 
 public class Gene {
-    public static final String FILE_PATH = "./data/gene.txt";
-    private final TaskList tasksList = new TaskList();
+    ;
+    private final TaskList tasksList;
     private final Ui ui = new Ui();
 
-    private static final String greeting =
-            Ui.SPACING + "Hello! I'm Gene\n" +
-                    Ui.SPACING + "What can I do for you?";
+    public Gene(String filePath) {
+        Storage storage = new Storage(filePath);
+        this.tasksList = new TaskList(storage);
+    }
+
 
     @Override
     public String toString() {
         return this.tasksList.toString();
     }
 
-    public void loadTasksFromFile(String filename) {
-        try {
-            File file = new File(filename);
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
-                String type = parts[0].trim();
-                boolean isMarked = parts[1].trim().equals("1");
-                String description = parts[2].trim();
-                String firstDate = parts.length > 3 ? parts[3].trim() : "";
-                String secondDate = parts.length > 4 ? parts[4].trim() : "";
-                Task task = null;
-                try {
-                    Commands commandType = Commands.valueOf(type);
-                    switch (commandType) {
-                        case TODO:
-                            task = new TodoTask(description, isMarked);
-                            break;
-                        case DEADLINE:
-                            task = new DeadlineTask(description, firstDate, isMarked);
-                            if (isMarked) task.mark();
-                            break;
-                        case EVENT:
-                            task = new EventTask(description, firstDate, secondDate, isMarked);
-                            break;
-                        default:
-                            continue;
-                    }
-                } catch (IllegalArgumentException e) {
-                    continue;
-                }
-                this.tasksList.addTask(task);
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Database file not found: " + filename);
-        }
-    }
-
-    public void saveTasksToFile(String filename) {
-        try {
-            FileWriter writer = new FileWriter(filename);
-            for (Task task : this.tasksList) {
-                writer.write(task.toDbString() + System.lineSeparator());
-            }
-            writer.close();
-        } catch (Exception e) {
-            System.out.println("An error occurred while saving tasks to file: " + e.getMessage());
-        }
-    }
-
     public void run() {
         Scanner sc = new Scanner(System.in);
 
-        this.ui.printFormatResponse(greeting);
+        this.ui.printGreeting();
 
-        this.loadTasksFromFile(FILE_PATH);
 
         while (true) {
             String input = sc.nextLine();
@@ -135,7 +80,6 @@ public class Gene {
                         this.tasksList.addTask(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                         break;
                 }
-                //gene.saveTasksToFile(FILE_PATH);
             } catch (IllegalArgumentException e) {
                 this.ui.printFormatResponse(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
             } catch (Exception e) {
@@ -145,6 +89,6 @@ public class Gene {
     }
 
     public static void main(String[] args) {
-        new Gene().run();
+        new Gene("./data/gene.txt").run();
     }
 }

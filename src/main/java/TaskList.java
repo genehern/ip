@@ -4,13 +4,17 @@ import Tasks.Task;
 import java.util.ArrayList;
 
 public class TaskList {
-    public TaskList() {
-    }
+    private final Storage storage;
+    private final ArrayList<Task> tasks;
 
-    private final ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList(Storage storage) {
+        this.storage = storage;
+        tasks = this.storage.loadTasksFromFile();
+    }
 
     public String addTask(Task task) {
         tasks.add(task);
+        this.storage.saveTasksToFile(this.tasks);
         return String.format("%sGot it. I've added this task:\n%s   %s\n%sNow you have %d tasks in the list.",
                 Ui.SPACING, Ui.SPACING, task.toString(), Ui.SPACING, tasks.size());
     }
@@ -18,12 +22,14 @@ public class TaskList {
     public String markTask(int i) {
         int idx = i - 1;
         tasks.get(idx).mark();
+        this.storage.saveTasksToFile(this.tasks);
         return String.format("Nice! I've marked this task as done:\n%s%s", Ui.SPACING, tasks.get(idx).toString());
     }
 
     public String unmarkTask(int i) {
         int idx = i - 1;
         tasks.get(idx).unmark();
+        this.storage.saveTasksToFile(this.tasks);
         return String.format("OK, I've marked this task as not done yet:\n%s%s", Ui.SPACING, tasks.get(idx).toString());
     }
 
@@ -33,6 +39,7 @@ public class TaskList {
             throw new TaskOutOfRangeException();
         }
         Task removed = tasks.remove(idx);
+        this.storage.saveTasksToFile(this.tasks);
         return String.format("%sNoted. I've removed this task:\n%s   %s\n%sNow you have %d tasks in the list.",
                 Ui.SPACING, Ui.SPACING, removed.toString(), Ui.SPACING, tasks.size());
     }
