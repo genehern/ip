@@ -1,6 +1,13 @@
 package Gene;
 
-import Gene.Command.*;
+import Gene.Command.AddCommand;
+import Gene.Command.ExitCommand;
+import Gene.Command.Command;
+import Gene.Command.ListCommand;
+import Gene.Command.MarkCommand;
+import Gene.Command.UnmarkCommand;
+import Gene.Command.DeleteCommand;
+import Gene.Command.PrintCommand;
 import Gene.Enums.Commands;
 import Gene.Exceptions.CreateTaskException;
 import Gene.Exceptions.EmptyTodoException;
@@ -11,7 +18,7 @@ import Gene.Tasks.EventTask;
 import Gene.Tasks.TodoTask;
 
 public class Parser {
-    public static Command parse(String input, TaskList taskList) {
+    public static Command parse(String input) {
         String[] inputArr = input.split(" ", 2);
         Command c = null;
         try {

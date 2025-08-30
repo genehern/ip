@@ -15,4 +15,11 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasksList) {
         Ui.printFormatResponse(tasksList.markTask(index));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MarkCommand)) return false;
+        MarkCommand other = (MarkCommand) o;
+        return this.index == other.index;
+    }
 }

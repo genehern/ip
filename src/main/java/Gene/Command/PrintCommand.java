@@ -15,4 +15,11 @@ public class PrintCommand extends Command {
     public void execute(TaskList tasksList) {
         Ui.printFormatResponse(msg);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PrintCommand)) return false;
+        PrintCommand other = (PrintCommand) o;
+        return this.msg.equals(other.msg);
+    }
 }

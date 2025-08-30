@@ -15,4 +15,11 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasksList) {
         Ui.printFormatResponse(tasksList.unmarkTask(index));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof UnmarkCommand)) return false;
+        UnmarkCommand other = (UnmarkCommand) o;
+        return this.index == other.index;
+    }
 }

@@ -16,4 +16,11 @@ public class AddCommand extends Command {
     public void execute(TaskList tasksList) {
         Ui.printFormatResponse(tasksList.addTask(task));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof AddCommand)) return false;
+        AddCommand other = (AddCommand) o;
+        return this.task.toString().equals(other.task.toString());
+    }
 }

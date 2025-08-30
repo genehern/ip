@@ -26,7 +26,7 @@ public class Gene {
         boolean isExit = false;
         while (!isExit) {
             String input = sc.nextLine();
-            Command c = Parser.parse(input, this.tasksList);
+            Command c = Parser.parse(input);
             c.execute(this.tasksList);
             isExit = c.isExit();
 
