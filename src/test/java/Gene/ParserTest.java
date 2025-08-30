@@ -8,13 +8,7 @@ import Gene.Command.Command;
 import Gene.Command.ListCommand;
 import Gene.Command.MarkCommand;
 import Gene.Command.UnmarkCommand;
-import Gene.Command.DeleteCommand;
 import Gene.Command.PrintCommand;
-import Gene.Enums.Commands;
-import Gene.Exceptions.CreateTaskException;
-import Gene.Exceptions.EmptyTodoException;
-import Gene.Exceptions.InvalidDeadlineException;
-import Gene.Exceptions.InvalidEventException;
 import Gene.Tasks.DeadlineTask;
 import Gene.Tasks.EventTask;
 import Gene.Tasks.TodoTask;
@@ -78,9 +72,16 @@ public class ParserTest {
 
     @Test
     public void print_invalid_syntax_success() {
-        Command c = Parser.parse("event cs2103 homework");
-        Command actual = new PrintCommand(Ui.SPACING + "Invalid event format. Use: event <description> /from <start> /to <end>");
-        assertEquals(c, actual);
+        Command c1 = Parser.parse("event cs2103 homework");
+        Command actual1 = new PrintCommand(Ui.SPACING + "Invalid event format. Use: event <description> /from <start> /to <end>");
+        Command c2 = Parser.parse("deadline cs2103 homework");
+        Command actual2 = new PrintCommand(Ui.SPACING + "Invalid deadline format. Use: deadline <description> /by <date>");
+        Command c3 = Parser.parse("todo");
+        Command actual3 = new PrintCommand(Ui.SPACING + "The description of a todo cannot be empty.");
+
+        assertEquals(c1, actual1);
+        assertEquals(c2, actual2);
+        assertEquals(c3, actual3);
     }
 
 
