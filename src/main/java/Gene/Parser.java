@@ -8,6 +8,7 @@ import Gene.Command.MarkCommand;
 import Gene.Command.UnmarkCommand;
 import Gene.Command.DeleteCommand;
 import Gene.Command.PrintCommand;
+import Gene.Command.FindCommand;
 import Gene.Enums.Commands;
 import Gene.Exceptions.CreateTaskException;
 import Gene.Exceptions.EmptyTodoException;
@@ -16,6 +17,7 @@ import Gene.Exceptions.InvalidEventException;
 import Gene.Tasks.DeadlineTask;
 import Gene.Tasks.EventTask;
 import Gene.Tasks.TodoTask;
+
 
 public class Parser {
     /**
@@ -47,6 +49,9 @@ public class Parser {
                 break;
             case DELETE:
                 c = new DeleteCommand(Integer.parseInt(inputArr[1]));
+                break;
+            case FIND:
+                c = new FindCommand(inputArr[1]);
                 break;
             case TODO:
                 if (inputArr.length < 2) {
