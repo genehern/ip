@@ -18,6 +18,14 @@ import Gene.Tasks.EventTask;
 import Gene.Tasks.TodoTask;
 
 public class Parser {
+    /**
+     * Returns a command that can then be executed. It will return a print
+     * command with the error message if the input does not follow the
+     * command style
+     *
+     * @param input Input from the user at the CLI
+     * @return Intended command to be exexuted
+     */
     public static Command parse(String input) {
         String[] inputArr = input.split(" ", 2);
         Command c = null;

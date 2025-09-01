@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-
+    
     public LocalDateTime dateTimeParser(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(s, formatter);
@@ -40,6 +40,13 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Return a different String representation to be stored in .txt file
+     * This string representation is easier to be parsed and recreate the
+     * task when the program runs initially
+     *
+     * @return string to be stored in .txt file
+     */
     abstract public String toDbString();
 
     @Override

@@ -19,6 +19,11 @@ public class Gene {
         return this.tasksList.toString();
     }
 
+    /**
+     * This method kickstart the program. It will be called by main
+     * This is required as when program starts here,
+     * it has access to private methods in Gene
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
 

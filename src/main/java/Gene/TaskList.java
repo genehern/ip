@@ -14,6 +14,12 @@ public class TaskList {
         tasks = this.storage.loadTasksFromFile();
     }
 
+    /**
+     * Add the task in the Task List and updates the storage
+     *
+     * @param task Task to add to the task list.
+     * @return The confirmation message to be printed out to user upon completion
+     */
     public String addTask(Task task) {
         tasks.add(task);
         this.storage.saveTasksToFile(this.tasks);
@@ -21,6 +27,12 @@ public class TaskList {
                 Ui.SPACING, Ui.SPACING, task.toString(), Ui.SPACING, tasks.size());
     }
 
+    /**
+     * Mark the task in the Task List and updates the storage
+     *
+     * @param i 1-based indexing of task to mark
+     * @return The confirmation message to be printed out to user upon completion
+     */
     public String markTask(int i) {
         int idx = i - 1;
         tasks.get(idx).mark();
@@ -28,6 +40,12 @@ public class TaskList {
         return String.format("Nice! I've marked this task as done:\n%s%s", Ui.SPACING, tasks.get(idx).toString());
     }
 
+    /**
+     * Unmark the task in the Task List and updates the storage
+     *
+     * @param i 1-based indexing of task to unmark
+     * @return The confirmation message to be printed out to user upon completion
+     */
     public String unmarkTask(int i) {
         int idx = i - 1;
         tasks.get(idx).unmark();
@@ -35,6 +53,14 @@ public class TaskList {
         return String.format("OK, I've marked this task as not done yet:\n%s%s", Ui.SPACING, tasks.get(idx).toString());
     }
 
+    /**
+     * Deletes the task in the Task List and updates the storage
+     *
+     * @param i 1-based indexing of task to delete
+     * @return The confirmation message to be printed out to user upon completion
+     * @throws TaskOutOfRangeException if the given index is less than 1
+     *                                 or greater than number of tasks
+     */
     public String deleteTask(int i) throws TaskOutOfRangeException {
         int idx = i - 1;
         if (idx < 0 || idx >= tasks.size()) {
@@ -46,6 +72,12 @@ public class TaskList {
                 Ui.SPACING, Ui.SPACING, removed.toString(), Ui.SPACING, tasks.size());
     }
 
+    /**
+     * Loops through the task list array and return formatted string
+     * consisting of all tasks. This allows user to list all tasks.
+     *
+     * @return String which is a formatted representation of all tasks
+     */
     @Override
     public String toString() {
         if (tasks.isEmpty()) {

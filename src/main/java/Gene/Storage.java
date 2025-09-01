@@ -20,6 +20,13 @@ public class Storage {
         this.fileName = fileName;
     }
 
+    /**
+     * Reads the .txt file and outputs an initial Array List of Task
+     * This is needed to read user data from previous run
+     * It will skip the line in .txt file if it has the wrong format
+     *
+     * @return Array List of Task to be used at start of program
+     */
     public ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -62,6 +69,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Reads the existing data and writes into a txt file
+     * This is required to save the data for subsequent run if program
+     * terminates
+     *
+     * @param tasksList the current task list used by program
+     */
     public void saveTasksToFile(ArrayList<Task> tasksList) {
         try {
             FileWriter writer = new FileWriter(fileName);
