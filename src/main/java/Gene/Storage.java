@@ -44,18 +44,18 @@ public class Storage {
                 try {
                     Commands commandType = Commands.valueOf(type);
                     switch (commandType) {
-                        case TODO:
-                            task = new TodoTask(description, isMarked);
-                            break;
-                        case DEADLINE:
-                            task = new DeadlineTask(description, firstDate, isMarked);
-                            if (isMarked) task.mark();
-                            break;
-                        case EVENT:
-                            task = new EventTask(description, firstDate, secondDate, isMarked);
-                            break;
-                        default:
-                            continue;
+                    case TODO:
+                        task = new TodoTask(description, isMarked);
+                        break;
+                    case DEADLINE:
+                        task = new DeadlineTask(description, firstDate, isMarked);
+                        if (isMarked) task.mark();
+                        break;
+                    case EVENT:
+                        task = new EventTask(description, firstDate, secondDate, isMarked);
+                        break;
+                    default:
+                        continue;
                     }
                 } catch (IllegalArgumentException e) {
                     continue;

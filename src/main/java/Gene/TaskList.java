@@ -18,12 +18,14 @@ public class TaskList {
      * Add the task in the Task List and updates the storage
      *
      * @param task Task to add to the task list.
-     * @return The confirmation message to be printed out to user upon completion
+     * @return The confirmation message to be printed out to user
+     * upon completion
      */
     public String addTask(Task task) {
         tasks.add(task);
         this.storage.saveTasksToFile(this.tasks);
-        return String.format("%sGot it. I've added this task:\n%s   %s\n%sNow you have %d tasks in the list.",
+        return String.format("%sGot it. I've added this task:\n%s  " +
+                        " %s\n%sNow you have %d tasks in the list.",
                 Ui.SPACING, Ui.SPACING, task.toString(), Ui.SPACING, tasks.size());
     }
 
@@ -31,7 +33,8 @@ public class TaskList {
      * Mark the task in the Task List and updates the storage
      *
      * @param i 1-based indexing of task to mark
-     * @return The confirmation message to be printed out to user upon completion
+     * @return The confirmation message to be printed out to user
+     * upon completion
      */
     public String markTask(int i) {
         int idx = i - 1;
@@ -44,20 +47,23 @@ public class TaskList {
      * Unmark the task in the Task List and updates the storage
      *
      * @param i 1-based indexing of task to unmark
-     * @return The confirmation message to be printed out to user upon completion
+     * @return The confirmation message to be printed out to user
+     * upon completion
      */
     public String unmarkTask(int i) {
         int idx = i - 1;
         tasks.get(idx).unmark();
         this.storage.saveTasksToFile(this.tasks);
-        return String.format("OK, I've marked this task as not done yet:\n%s%s", Ui.SPACING, tasks.get(idx).toString());
+        return String.format("OK, I've marked this task as not done yet:\n%s%s",
+                Ui.SPACING, tasks.get(idx).toString());
     }
 
     /**
      * Deletes the task in the Task List and updates the storage
      *
      * @param i 1-based indexing of task to delete
-     * @return The confirmation message to be printed out to user upon completion
+     * @return The confirmation message to be printed out to user upon
+     * completion
      * @throws TaskOutOfRangeException if the given index is less than 1
      *                                 or greater than number of tasks
      */
@@ -68,7 +74,8 @@ public class TaskList {
         }
         Task removed = tasks.remove(idx);
         this.storage.saveTasksToFile(this.tasks);
-        return String.format("%sNoted. I've removed this task:\n%s   %s\n%sNow you have %d tasks in the list.",
+        return String.format("%sNoted. I've removed this task:\n%s  " +
+                        " %s\n%sNow you have %d tasks in the list.",
                 Ui.SPACING, Ui.SPACING, removed.toString(), Ui.SPACING, tasks.size());
     }
 
@@ -86,7 +93,8 @@ public class TaskList {
         StringBuilder res = new StringBuilder();
         res.append(Ui.SPACING).append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            res.append(String.format("%s %d. %s", Ui.SPACING, i + 1, tasks.get(i).toString()));
+            res.append(String.format("%s %d. %s",
+                    Ui.SPACING, i + 1, tasks.get(i).toString()));
             if (i != tasks.size() - 1) {
                 res.append("\n");
             }
