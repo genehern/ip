@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    
+
     public LocalDateTime dateTimeParser(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(s, formatter);
@@ -38,6 +38,16 @@ public abstract class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Required for  find command
+     *
+     * @param keyword user inputs
+     * @return if it contains the keyword
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.description.contains(keyword);
     }
 
     /**

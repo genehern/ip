@@ -72,6 +72,16 @@ public class TaskList {
                 Ui.SPACING, Ui.SPACING, removed.toString(), Ui.SPACING, tasks.size());
     }
 
+    public ArrayList<Task> findKeyword(String keyword) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.containsKeyword(keyword)) {
+                filteredList.add(task);
+            }
+        }
+        return filteredList;
+    }
+
     /**
      * Loops through the task list array and return formatted string
      * consisting of all tasks. This allows user to list all tasks.
