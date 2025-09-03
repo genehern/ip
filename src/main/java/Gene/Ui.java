@@ -1,4 +1,4 @@
-package Gene;
+package gene;
 
 public class Ui {
 
@@ -25,4 +25,3 @@ public class Ui {
         printFormatResponse(GREETING);
     }
 }
-

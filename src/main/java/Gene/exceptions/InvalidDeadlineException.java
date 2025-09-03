@@ -1,4 +1,4 @@
-package Gene.Exceptions;
+package gene.exceptions;
 
 public class InvalidDeadlineException extends CreateTaskException {
     public InvalidDeadlineException() {

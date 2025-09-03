@@ -1,22 +1,22 @@
-package Gene;
+package gene;
 
-import Gene.Command.AddCommand;
-import Gene.Command.ExitCommand;
-import Gene.Command.Command;
-import Gene.Command.ListCommand;
-import Gene.Command.MarkCommand;
-import Gene.Command.UnmarkCommand;
-import Gene.Command.DeleteCommand;
-import Gene.Command.PrintCommand;
-import Gene.Command.FindCommand;
-import Gene.Enums.Commands;
-import Gene.Exceptions.CreateTaskException;
-import Gene.Exceptions.EmptyTodoException;
-import Gene.Exceptions.InvalidDeadlineException;
-import Gene.Exceptions.InvalidEventException;
-import Gene.Tasks.DeadlineTask;
-import Gene.Tasks.EventTask;
-import Gene.Tasks.TodoTask;
+import gene.command.AddCommand;
+import gene.command.ExitCommand;
+import gene.command.Command;
+import gene.command.ListCommand;
+import gene.command.MarkCommand;
+import gene.command.UnmarkCommand;
+import gene.command.DeleteCommand;
+import gene.command.PrintCommand;
+import gene.command.FindCommand;
+import gene.enums.Commands;
+import gene.exceptions.CreateTaskException;
+import gene.exceptions.EmptyTodoException;
+import gene.exceptions.InvalidDeadlineException;
+import gene.exceptions.InvalidEventException;
+import gene.tasks.DeadlineTask;
+import gene.tasks.EventTask;
+import gene.tasks.TodoTask;
 
 
 public class Parser {

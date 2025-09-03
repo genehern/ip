@@ -1,17 +1,17 @@
-package Gene;
+package gene;
 
 import org.junit.jupiter.api.Test;
 
-import Gene.Command.AddCommand;
-import Gene.Command.ExitCommand;
-import Gene.Command.Command;
-import Gene.Command.ListCommand;
-import Gene.Command.MarkCommand;
-import Gene.Command.UnmarkCommand;
-import Gene.Command.PrintCommand;
-import Gene.Tasks.DeadlineTask;
-import Gene.Tasks.EventTask;
-import Gene.Tasks.TodoTask;
+import gene.command.AddCommand;
+import gene.command.ExitCommand;
+import gene.command.Command;
+import gene.command.ListCommand;
+import gene.command.MarkCommand;
+import gene.command.UnmarkCommand;
+import gene.command.PrintCommand;
+import gene.tasks.DeadlineTask;
+import gene.tasks.EventTask;
+import gene.tasks.TodoTask;
 
 import static org.junit.jupiter.api.Assertions.*;
 

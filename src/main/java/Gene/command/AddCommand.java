@@ -1,8 +1,8 @@
-package Gene.Command;
+package gene.command;
 
-import Gene.TaskList;
-import Gene.Tasks.Task;
-import Gene.Ui;
+import gene.TaskList;
+import gene.tasks.Task;
+import gene.Ui;
 
 public class AddCommand extends Command {
     private final Task task;

@@ -1,6 +1,6 @@
-package Gene;
+package gene;
 
-import Gene.Command.Command;
+import gene.command.Command;
 
 import java.util.Scanner;
 
@@ -12,7 +12,6 @@ public class Gene {
         Storage storage = new Storage(filePath);
         this.tasksList = new TaskList(storage);
     }
-
 
     @Override
     public String toString() {

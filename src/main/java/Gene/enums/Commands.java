@@ -1,4 +1,4 @@
-package Gene.Enums;
+package gene.enums;
 
 public enum Commands {
     BYE,

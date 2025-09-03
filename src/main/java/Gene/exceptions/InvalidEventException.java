@@ -1,4 +1,4 @@
-package Gene.Exceptions;
+package gene.exceptions;
 
 public class InvalidEventException extends CreateTaskException {
     public InvalidEventException() {

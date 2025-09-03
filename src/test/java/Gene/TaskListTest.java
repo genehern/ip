@@ -1,6 +1,7 @@
-package Gene;
+package gene;
 
-import Gene.Tasks.TodoTask;
+import gene.tasks.TodoTask;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

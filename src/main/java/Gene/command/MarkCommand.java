@@ -1,7 +1,7 @@
-package Gene.Command;
+package gene.command;
 
-import Gene.TaskList;
-import Gene.Ui;
+import gene.TaskList;
+import gene.Ui;
 
 public class MarkCommand extends Command {
     private final int index;

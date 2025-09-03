@@ -1,6 +1,6 @@
-package Gene.Tasks;
+package gene.tasks;
 
-import Gene.Enums.Commands;
+import gene.enums.Commands;
 
 public class TodoTask extends Task {
     public TodoTask(String s, boolean b) {

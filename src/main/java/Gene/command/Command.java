@@ -1,6 +1,6 @@
-package Gene.Command;
+package gene.command;
 
-import Gene.TaskList;
+import gene.TaskList;
 
 public abstract class Command {
     private final boolean isExit;
@@ -14,5 +14,5 @@ public abstract class Command {
     }
 
     public abstract void execute(TaskList tasksList);
-    
+
 }

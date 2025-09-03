@@ -1,7 +1,7 @@
-package Gene.Command;
+package gene.command;
 
-import Gene.Ui;
-import Gene.TaskList;
+import gene.Ui;
+import gene.TaskList;
 
 public class ListCommand extends Command {
     public ListCommand() {

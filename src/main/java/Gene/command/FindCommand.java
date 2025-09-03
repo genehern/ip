@@ -1,8 +1,8 @@
-package Gene.Command;
+package gene.command;
 
-import Gene.Tasks.Task;
-import Gene.TaskList;
-import Gene.Ui;
+import gene.tasks.Task;
+import gene.TaskList;
+import gene.Ui;
 
 import java.util.ArrayList;
 
