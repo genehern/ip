@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("gene.Gene")
+    mainClass.set("Launcher")
 }
 
 shadowJar {

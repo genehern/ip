@@ -33,11 +33,17 @@ public class Gene {
             Command c = Parser.parse(input);
             c.execute(this.tasksList);
             isExit = c.isExit();
-
         }
     }
 
     public static void main(String[] args) {
         new Gene("./data/gene.txt").run();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 }
