@@ -14,7 +14,7 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
-    public void execute(TaskList tasksList) {
+    public String execute(TaskList tasksList) {
         ArrayList<Task> tasksListKeyword = tasksList.findKeyword(this.keyword);
 
         class Helper {
@@ -35,6 +35,6 @@ public class FindCommand extends Command {
             }
         }
 
-        Ui.printFormatResponse(new Helper().formatTaskList(tasksListKeyword));
+        return new Helper().formatTaskList(tasksListKeyword);
     }
 }

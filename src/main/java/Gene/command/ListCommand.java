@@ -9,7 +9,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList) {
-        Ui.printFormatResponse(tasksList.toString());
+    public String execute(TaskList tasksList) {
+        return tasksList.toString();
     }
 }

@@ -1,7 +1,6 @@
 package gene.command;
 
 import gene.TaskList;
-import gene.Ui;
 
 public class PrintCommand extends Command {
     private final String msg;
@@ -12,8 +11,8 @@ public class PrintCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList) {
-        Ui.printFormatResponse(msg);
+    public String execute(TaskList tasksList) {
+        return msg;
     }
 
     @Override

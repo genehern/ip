@@ -23,23 +23,24 @@ public class MainWindow extends AnchorPane {
 
     private Gene gene;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Gene.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Lebron.jpeg"));
+    private Image geneImage = new Image(this.getClass().getResourceAsStream("/images/Gene.jpg"));
+    private Image lebronImage = new Image(this.getClass().getResourceAsStream("/images/Lebron.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.GREETING, geneImage));
     }
 
     /**
      * Injects the Duke instance
      */
-    public void setDuke(Gene d) {
+    public void setGene(Gene d) {
         gene = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Gene's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -47,8 +48,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = gene.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, lebronImage),
+                DialogBox.getDukeDialog(response, geneImage)
         );
         userInput.clear();
     }

@@ -12,11 +12,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList) {
+    public String execute(TaskList tasksList) {
         try {
-            Ui.printFormatResponse(tasksList.deleteTask(index));
+            return tasksList.deleteTask(index);
         } catch (Exception e) {
-            Ui.printFormatResponse(Ui.SPACING + e.getMessage());
+            return Ui.SPACING + e.getMessage();
         }
     }
 }

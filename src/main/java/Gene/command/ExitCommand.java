@@ -1,7 +1,6 @@
 package gene.command;
 
 import gene.TaskList;
-import gene.Ui;
 
 public class ExitCommand extends Command {
     public ExitCommand() {
@@ -9,7 +8,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList) {
-        Ui.printFormatResponse("Bye. Hope to see you again soon!");
+    public String execute(TaskList tasksList) {
+        return "Bye. Hope to see you again soon!";
     }
 }

@@ -1,7 +1,6 @@
 package gene.command;
 
 import gene.TaskList;
-import gene.Ui;
 
 public class UnmarkCommand extends Command {
     private final int index;
@@ -12,8 +11,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList) {
-        Ui.printFormatResponse(tasksList.unmarkTask(index));
+    public String execute(TaskList tasksList) {
+        return tasksList.unmarkTask(index);
     }
 
     @Override

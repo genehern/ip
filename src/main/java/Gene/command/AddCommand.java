@@ -2,7 +2,6 @@ package gene.command;
 
 import gene.TaskList;
 import gene.tasks.Task;
-import gene.Ui;
 
 public class AddCommand extends Command {
     private final Task task;
@@ -13,8 +12,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasksList) {
-        Ui.printFormatResponse(tasksList.addTask(task));
+    public String execute(TaskList tasksList) {
+        return tasksList.addTask(task);
     }
 
     @Override

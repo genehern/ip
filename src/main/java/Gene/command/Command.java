@@ -13,6 +13,6 @@ public abstract class Command {
         return isExit;
     }
 
-    public abstract void execute(TaskList tasksList);
+    public abstract String execute(TaskList tasksList);
 
 }
