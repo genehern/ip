@@ -4,7 +4,7 @@ public class Ui {
 
     public static final String SPACING = "    ";
     public static final String LINE = SPACING + "____________________________";
-    private static final String GREETING =
+    public static final String GREETING =
             Ui.SPACING + "Hello! I'm Gene\n" +
                     Ui.SPACING + "What can I do for you?";
 

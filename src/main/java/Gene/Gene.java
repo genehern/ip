@@ -31,7 +31,8 @@ public class Gene {
         while (!isExit) {
             String input = sc.nextLine();
             Command c = Parser.parse(input);
-            c.execute(this.tasksList);
+            String response = c.execute(this.tasksList);
+            Ui.printFormatResponse(response);
             isExit = c.isExit();
         }
     }
@@ -44,6 +45,7 @@ public class Gene {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Command c = Parser.parse(input);
+        return c.execute(this.tasksList);
     }
 }
