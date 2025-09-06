@@ -1,6 +1,7 @@
+package gene;
+
 import java.io.IOException;
 
-import gene.Gene;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,5 +1,5 @@
-import gene.DialogBox;
-import gene.Gene;
+package gene;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
