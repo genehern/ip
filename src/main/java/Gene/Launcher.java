@@ -1,3 +1,5 @@
+package gene;
+
 import javafx.application.Application;
 
 /**
