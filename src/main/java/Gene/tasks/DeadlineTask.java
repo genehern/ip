@@ -9,6 +9,8 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(String description, String by, boolean isDone) {
         super(description, isDone);
+        assert description != null;
+        assert by != null;
         this.by = this.dateTimeParser(by);
     }
 
