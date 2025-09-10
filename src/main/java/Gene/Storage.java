@@ -21,6 +21,48 @@ public class Storage {
     }
 
     /**
+     * Parses a line from the .txt Storage file and converts it into a Task object
+     * to be added to the initial TaskList
+     *
+     * @param line in the .txt Storage file
+     * @return Task object parsed from the line
+     */
+    private Task parseStorageLine(String line) {
+        String[] parts = line.split("\\|");
+        String type = parts[0].trim();
+        boolean isMarked = parts[1].trim().equals("1");
+        String description = parts[2].trim();
+        String firstDate = parts.length > 3 ? parts[3].trim() : "";
+        String secondDate = parts.length > 4 ? parts[4].trim() : "";
+        Task task = null;
+        try {
+            //Commands.valueOf will throw IllegalArgumentException if type is invalid
+            Commands commandType = Commands.valueOf(type);
+            switch (commandType) {
+            case TODO:
+                task = new TodoTask(description, isMarked);
+                break;
+            case DEADLINE:
+                task = new DeadlineTask(description, firstDate, isMarked);
+                if (isMarked) task.mark();
+                break;
+            case EVENT:
+                task = new EventTask(description, firstDate, secondDate, isMarked);
+                break;
+            default:
+                //Empty as it will definitely be one of the above 3 types
+                //If it is not, illegalArgumentException will be thrown at Commands.valueOf,
+                //prior to switch statement
+            }
+        } catch (IllegalArgumentException e) {
+            //Print used here as it is not an error that should block the program
+            //It will just skip the line in the .txt file
+            Ui.printFormatResponse("Skipped invalid event in database");
+        }
+        return task;
+    }
+
+    /**
      * Reads the .txt file and outputs an initial Array List of Task
      * This is needed to read user data from previous run
      * It will skip the line in .txt file if it has the wrong format
@@ -34,33 +76,10 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
-                String type = parts[0].trim();
-                boolean isMarked = parts[1].trim().equals("1");
-                String description = parts[2].trim();
-                String firstDate = parts.length > 3 ? parts[3].trim() : "";
-                String secondDate = parts.length > 4 ? parts[4].trim() : "";
-                Task task = null;
-                try {
-                    Commands commandType = Commands.valueOf(type);
-                    switch (commandType) {
-                    case TODO:
-                        task = new TodoTask(description, isMarked);
-                        break;
-                    case DEADLINE:
-                        task = new DeadlineTask(description, firstDate, isMarked);
-                        if (isMarked) task.mark();
-                        break;
-                    case EVENT:
-                        task = new EventTask(description, firstDate, secondDate, isMarked);
-                        break;
-                    default:
-                        continue;
-                    }
-                } catch (IllegalArgumentException e) {
-                    continue;
+                Task task = parseStorageLine(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
-                tasks.add(task);
             }
             scanner.close();
         } catch (FileNotFoundException e) {

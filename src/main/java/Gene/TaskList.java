@@ -94,15 +94,11 @@ public class TaskList {
      * Loops through the task list array and return formatted string
      * consisting of all tasks. This allows user to list all tasks.
      *
+     * @param res   StringBuilder to append the result to
+     * @param tasks ArrayList of tasks to be listed
      * @return String which is a formatted representation of all tasks
      */
-    @Override
-    public String toString() {
-        if (tasks.isEmpty()) {
-            return Ui.SPACING + "You have no tasks in your list.";
-        }
-        StringBuilder res = new StringBuilder();
-        res.append(Ui.SPACING).append("Here are the tasks in your list:\n");
+    public static String getStringFromTasks(StringBuilder res, ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
             assert !tasks.get(i).toString().isEmpty();
             res.append(String.format("%s %d. %s",
@@ -112,6 +108,21 @@ public class TaskList {
             }
         }
         return res.toString();
+    }
+
+    /**
+     * Formats the TaskList for printing when user calls List command
+     *
+     * @return String which is a formatted representation of all tasks
+     */
+    @Override
+    public String toString() {
+        if (tasks.isEmpty()) {
+            return Ui.SPACING + "You have no tasks in your list.";
+        }
+        StringBuilder res = new StringBuilder();
+        res.append(Ui.SPACING).append("Here are the tasks in your list:\n");
+        return getStringFromTasks(res, tasks);
     }
 
 }

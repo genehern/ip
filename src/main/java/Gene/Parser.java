@@ -80,7 +80,9 @@ public class Parser {
                 c = new AddCommand(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                 break;
             default:
-                throw new IllegalArgumentException();
+                //Empty as it will definitely be one of the above 3 types
+                //If it is not, illegalArgumentException will be thrown at Commands.valueOf,
+                //prior to switch statement
             }
         } catch (IllegalArgumentException e) {
             c = new PrintCommand(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
