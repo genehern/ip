@@ -6,6 +6,8 @@ import gene.Ui;
 
 import java.util.ArrayList;
 
+import static gene.TaskList.getStringFromTasks;
+
 public class FindCommand extends Command {
     private final String keyword;
 
@@ -25,13 +27,7 @@ public class FindCommand extends Command {
                 StringBuilder res = new StringBuilder();
                 res.append(Ui.SPACING).append("Here are the matching" +
                         " task in your list:\n");
-                for (int i = 0; i < tasks.size(); i++) {
-                    res.append(String.format("%s %d. %s", Ui.SPACING, i + 1, tasks.get(i).toString()));
-                    if (i != tasks.size() - 1) {
-                        res.append("\n");
-                    }
-                }
-                return res.toString();
+                return getStringFromTasks(res, tasks);
             }
         }
 

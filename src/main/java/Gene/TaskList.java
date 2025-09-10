@@ -93,6 +93,24 @@ public class TaskList {
      * Loops through the task list array and return formatted string
      * consisting of all tasks. This allows user to list all tasks.
      *
+     * @param res   StringBuilder to append the result to
+     * @param tasks ArrayList of tasks to be listed
+     * @return String which is a formatted representation of all tasks
+     */
+    public static String getStringFromTasks(StringBuilder res, ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            res.append(String.format("%s %d. %s",
+                    Ui.SPACING, i + 1, tasks.get(i).toString()));
+            if (i != tasks.size() - 1) {
+                res.append("\n");
+            }
+        }
+        return res.toString();
+    }
+
+    /**
+     * Formats the TaskList for printing when user calls List command
+     *
      * @return String which is a formatted representation of all tasks
      */
     @Override
@@ -102,14 +120,7 @@ public class TaskList {
         }
         StringBuilder res = new StringBuilder();
         res.append(Ui.SPACING).append("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            res.append(String.format("%s %d. %s",
-                    Ui.SPACING, i + 1, tasks.get(i).toString()));
-            if (i != tasks.size() - 1) {
-                res.append("\n");
-            }
-        }
-        return res.toString();
+        return getStringFromTasks(res, tasks);
     }
 
 }
