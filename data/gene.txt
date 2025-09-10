@@ -1,13 +1,2 @@
-DEADLINE| 0 | fjkfn | 2020-11-11 1900
-TODO | 0 | j
-DEADLINE| 0 | fvv | 2022-02-02 1900
-TOD | 0 | skfn
-TODO | 0 | dfn
-DEADLINE| 1 | fsknf | 2022-12-12 1900
-TODO | 0 | sjen
 TODO | 0 | book
-TODO | 0 | booking
-TODO | 0 | book ddd
-TODO | 0 | dd
 TODO | 0 | fwjwbfe
-TODO | 0 | i love you 

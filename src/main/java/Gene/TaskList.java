@@ -73,6 +73,7 @@ public class TaskList {
             throw new TaskOutOfRangeException();
         }
         Task removed = tasks.remove(idx);
+        assert removed != null;
         this.storage.saveTasksToFile(this.tasks);
         return String.format("%sNoted. I've removed this task:\n%s  " +
                         " %s\n%sNow you have %d tasks in the list.",
@@ -99,6 +100,7 @@ public class TaskList {
      */
     public static String getStringFromTasks(StringBuilder res, ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
+            assert !tasks.get(i).toString().isEmpty();
             res.append(String.format("%s %d. %s",
                     Ui.SPACING, i + 1, tasks.get(i).toString()));
             if (i != tasks.size() - 1) {

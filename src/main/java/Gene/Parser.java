@@ -33,6 +33,7 @@ public class Parser {
         Command c = null;
         try {
             String commandStr = inputArr[0].toUpperCase();
+            assert !commandStr.isEmpty();
             Commands command = Commands.valueOf(commandStr);
             switch (command) {
             case BYE:
@@ -54,14 +55,14 @@ public class Parser {
                 c = new FindCommand(inputArr[1]);
                 break;
             case TODO:
-                if (inputArr.length < 2) {
+                if (inputArr.length < 2 || inputArr[1].isEmpty()) {
                     throw new EmptyTodoException();
                 }
                 c = new AddCommand(new TodoTask(inputArr[1], false));
                 break;
             case DEADLINE:
                 String[] parts = inputArr[1].split(" /by ", 2);
-                if (parts.length < 2) {
+                if (parts.length < 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
                     throw new InvalidDeadlineException();
                 } else {
                     c = new AddCommand(new DeadlineTask(parts[0], parts[1], false));
@@ -73,7 +74,7 @@ public class Parser {
                     throw new InvalidEventException();
                 }
                 String[] toSplit = fromSplit[1].split(" /to ", 2);
-                if (toSplit.length < 2) {
+                if (toSplit.length < 2 || toSplit[0].isEmpty() || toSplit[1].isEmpty() || fromSplit[0].isEmpty()) {
                     throw new InvalidEventException();
                 }
                 c = new AddCommand(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));

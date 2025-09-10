@@ -5,6 +5,7 @@ import gene.enums.Commands;
 public class TodoTask extends Task {
     public TodoTask(String s, boolean b) {
         super(s, b);
+        assert s != null;
     }
 
     @Override

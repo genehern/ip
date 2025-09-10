@@ -13,6 +13,7 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList tasksList) {
+        assert tasksList != null;
         return tasksList.addTask(task);
     }
 

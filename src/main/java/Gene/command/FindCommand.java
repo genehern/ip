@@ -17,6 +17,7 @@ public class FindCommand extends Command {
     }
 
     public String execute(TaskList tasksList) {
+        assert tasksList != null;
         ArrayList<Task> tasksListKeyword = tasksList.findKeyword(this.keyword);
 
         class Helper {
