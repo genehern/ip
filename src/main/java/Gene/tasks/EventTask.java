@@ -10,6 +10,9 @@ public class EventTask extends Task {
 
     public EventTask(String description, String from, String to, boolean b) {
         super(description, b);
+        assert description != null;
+        assert from != null;
+        assert to != null;
         this.from = this.dateTimeParser(from);
         this.to = this.dateTimeParser(to);
     }

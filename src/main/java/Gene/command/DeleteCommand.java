@@ -13,6 +13,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasksList) {
+        assert tasksList != null;
         try {
             return tasksList.deleteTask(index);
         } catch (Exception e) {

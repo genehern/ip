@@ -14,7 +14,7 @@ public abstract class Task {
     }
 
     public String dateTimeToString(LocalDateTime dt) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd yyyy HHmm");
         return dt.format(formatter);
     }
 

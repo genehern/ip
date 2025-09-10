@@ -12,6 +12,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasksList) {
+        assert tasksList != null;
         return tasksList.markTask(index);
     }
 
