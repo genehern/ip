@@ -1,14 +1,6 @@
 package gene;
 
-import gene.command.AddCommand;
-import gene.command.ExitCommand;
-import gene.command.Command;
-import gene.command.ListCommand;
-import gene.command.MarkCommand;
-import gene.command.UnmarkCommand;
-import gene.command.DeleteCommand;
-import gene.command.PrintCommand;
-import gene.command.FindCommand;
+import gene.command.*;
 import gene.enums.Commands;
 import gene.exceptions.CreateTaskException;
 import gene.exceptions.EmptyTodoException;
@@ -17,6 +9,8 @@ import gene.exceptions.InvalidEventException;
 import gene.tasks.DeadlineTask;
 import gene.tasks.EventTask;
 import gene.tasks.TodoTask;
+
+import java.time.format.DateTimeParseException;
 
 
 public class Parser {
@@ -64,9 +58,9 @@ public class Parser {
                 String[] parts = inputArr[1].split(" /by ", 2);
                 if (parts.length < 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
                     throw new InvalidDeadlineException();
-                } else {
-                    c = new AddCommand(new DeadlineTask(parts[0], parts[1], false));
                 }
+                c = new AddCommand(new DeadlineTask(parts[0], parts[1], false));
+
                 break;
             case EVENT:
                 String[] fromSplit = inputArr[1].split(" /from ", 2);
@@ -79,15 +73,28 @@ public class Parser {
                 }
                 c = new AddCommand(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                 break;
+            case REMIND:
+                String[] part = inputArr[1].split("/by", 2);
+                if (part[0].isEmpty()) {
+                    throw new CreateTaskException("Invalid remind format. Use: remind /by <date>");
+                }
+                System.out.println(part[0]);
+                c = new RemindCommand(part[0]);
+                break;
             default:
                 //Empty as it will definitely be one of the above 3 types
                 //If it is not, illegalArgumentException will be thrown at Commands.valueOf,
                 //prior to switch statement
             }
-        } catch (IllegalArgumentException e) {
-            c = new PrintCommand(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
+        } catch (DateTimeParseException e) {
+            c = new PrintCommand(Ui.SPACING + "Input date is in the wrong format! " +
+                    "Please use the format YYYY-MM-DD HHMM");
         } catch (CreateTaskException e) {
             c = new PrintCommand(Ui.SPACING + e.getMessage());
+        } catch (Exception e) {
+            //Pokemon exception should be avoided
+            //Used in this case since I always want to output something to user if error
+            c = new PrintCommand(Ui.SPACING + "I'm sorry, but I don't know what that means :-(");
         }
         return c;
     }

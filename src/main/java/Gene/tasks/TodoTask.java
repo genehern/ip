@@ -2,10 +2,17 @@ package gene.tasks;
 
 import gene.enums.Commands;
 
+import java.time.LocalDateTime;
+
 public class TodoTask extends Task {
     public TodoTask(String s, boolean b) {
         super(s, b);
         assert s != null;
+    }
+
+    @Override
+    public boolean isReminderNeeded(LocalDateTime dt) {
+        return false;
     }
 
     @Override

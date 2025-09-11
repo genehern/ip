@@ -23,6 +23,11 @@ public class EventTask extends Task {
     }
 
     @Override
+    public boolean isReminderNeeded(LocalDateTime dt) {
+        return (dt.isEqual(this.from) || dt.isBefore(this.from));
+    }
+
+    @Override
     public String toString() {
         return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description, this.dateTimeToString(from), this.dateTimeToString(to));
     }

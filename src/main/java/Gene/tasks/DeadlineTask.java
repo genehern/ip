@@ -20,6 +20,11 @@ public class DeadlineTask extends Task {
     }
 
     @Override
+    public boolean isReminderNeeded(LocalDateTime dt) {
+        return (dt.isEqual(this.by) || dt.isBefore(this.by));
+    }
+
+    @Override
     public String toString() {
         return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, this.dateTimeToString(by));
     }

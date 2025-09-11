@@ -3,12 +3,11 @@ package gene.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
-    public LocalDateTime dateTimeParser(String s) {
+    public static LocalDateTime dateTimeParser(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(s, formatter);
     }
@@ -58,6 +57,14 @@ public abstract class Task {
      * @return string to be stored in .txt file
      */
     abstract public String toDbString();
+
+    /**
+     * Check if a reminder is needed for this task at the given date time
+     *
+     * @param dt the date time to be checked against
+     * @return true if a reminder is needed, false otherwise
+     */
+    abstract public boolean isReminderNeeded(LocalDateTime dt);
 
     @Override
     public String toString() {

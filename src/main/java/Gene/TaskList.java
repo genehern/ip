@@ -3,6 +3,7 @@ package gene;
 import gene.exceptions.TaskOutOfRangeException;
 import gene.tasks.Task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -88,6 +89,21 @@ public class TaskList {
             }
         }
         return filteredList;
+    }
+
+    public String getReminderTasks(LocalDateTime cutOffDate) {
+        StringBuilder res = new StringBuilder();
+        ArrayList<Task> reminderTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            if (task.isReminderNeeded(cutOffDate)) {
+                reminderTasks.add(task);
+            }
+        }
+        if (reminderTasks.isEmpty()) {
+            return Ui.SPACING + "You have no tasks that need reminders by this date.";
+        }
+        res.append(Ui.SPACING).append("Here are the tasks that need reminders by this date:\n");
+        return getStringFromTasks(res, reminderTasks);
     }
 
     /**
