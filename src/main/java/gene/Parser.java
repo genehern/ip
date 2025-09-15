@@ -76,7 +76,7 @@ public class Parser {
             case REMIND:
                 String[] part = inputArr[1].split("/by", 2);
                 if (part[0].isEmpty()) {
-                    throw new CreateTaskException("Invalid remind format. Use: remind /by <date>");
+                    throw new CreateTaskException("AWWW MANNN Invalid remind format. Use: remind /by <date>");
                 }
                 System.out.println(part[0]);
                 c = new RemindCommand(part[0]);
@@ -87,7 +87,7 @@ public class Parser {
                 //prior to switch statement
             }
         } catch (DateTimeParseException e) {
-            c = new PrintCommand(Ui.SPACING + "Input date is in the wrong format! " +
+            c = new PrintCommand(Ui.SPACING + "AWWW MANNN Input date is in the wrong format! " +
                     "Please use the format YYYY-MM-DD HHMM");
         } catch (CreateTaskException e) {
             c = new PrintCommand(Ui.SPACING + e.getMessage());
