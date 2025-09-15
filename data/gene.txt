@@ -1,4 +1,6 @@
-TODO | 0 | book
-TODO | 0 | fwjwbfe
-DEADLINE| 0 | ss | 2022-03-02 1330
-DEADLINE| 0 | remind | 2022-02-02 1300
+TODO | 1 | go on a date
+DEADLINE| 0 | 2100 homework | 2025-10-10 1400
+TODO | 0 | run 
+TODO | 0 | bake
+TODO | 0 | play 
+TODO | 0 | gym 

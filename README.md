@@ -32,3 +32,5 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle)
 expect to find Java files.
 
+
+
