@@ -19,7 +19,7 @@ public class Gene {
     }
 
     /**
-     * This method kickstart the program. It will be called by main
+     * Kickstarts the program. It will be called by main
      * This is required as when program starts here,
      * it has access to private methods in Gene
      */

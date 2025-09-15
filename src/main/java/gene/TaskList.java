@@ -16,7 +16,7 @@ public class TaskList {
     }
 
     /**
-     * Add the task in the Task List and updates the storage
+     * Adds the task in the Task List and updates the storage
      *
      * @param task Task to add to the task list.
      * @return The confirmation message to be printed out to user
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Mark the task in the Task List and updates the storage
+     * Marks the task in the Task List and updates the storage
      *
      * @param i 1-based indexing of task to mark
      * @return The confirmation message to be printed out to user
@@ -45,7 +45,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark the task in the Task List and updates the storage
+     * Unmarks the task in the Task List and updates the storage
      *
      * @param i 1-based indexing of task to unmark
      * @return The confirmation message to be printed out to user

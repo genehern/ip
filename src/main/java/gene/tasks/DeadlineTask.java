@@ -19,6 +19,12 @@ public class DeadlineTask extends Task {
         return String.format("%s| %d | %s | %s", Commands.DEADLINE, isDone ? 1 : 0, description, this.dateTimeToDbString(by));
     }
 
+    /**
+     * Checks if a reminder is needed for the task based on the given date time.
+     *
+     * @param dt the date time to be checked against
+     * @return boolean indicating if a reminder is needed
+     */
     @Override
     public boolean isReminderNeeded(LocalDateTime dt) {
         return (dt.isEqual(this.by) || dt.isBefore(this.by));
