@@ -13,8 +13,8 @@ public class EventTask extends Task {
         assert description != null;
         assert from != null;
         assert to != null;
-        this.from = this.dateTimeParser(from);
-        this.to = this.dateTimeParser(to);
+        this.from = dateTimeParser(from);
+        this.to = dateTimeParser(to);
     }
 
     @Override
