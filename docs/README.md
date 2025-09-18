@@ -11,9 +11,107 @@
 Gene is a chatbot that helps users manage their tasks and deadlines efficiently. It is ideal for users who want to stay
 organized and on top of their work, especially those familiar with CLI usage for quick access.
 
+- [Quick Start](#quick-start)
+- [Features](#features)
+    - [Add](#adding-a--task)
+    - [Delete](#features-summary)
+    - [Mark/Unmark](#markingunmarking-a-task)
+    - [List](#listing-the-tasks)
+    - [Remind](#remind-tasks)
+    - [Exit](#exiting-the-program)
+- [Command Summary](#features-summary)
+
 ---
 
-## Features
+### Quick Start
+
+Ensure you have Java 17 or above installed in your Computer.
+Mac users: Ensure you have the precise JDK version prescribed here.
+
+Download the latest .jar file from here.
+
+Copy the file to the folder you want to use as the home folder for your chatbot.
+
+Open a command terminal, cd into the folder you put the jar file in, and use the java -jar gene.jar command to
+run the application.
+
+A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+Ui
+
+Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the
+help window.
+Some example commands you can try:
+
+list : Lists all contacts.
+
+add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 : Adds a contact named John Doe to the
+Address Book.
+
+delete 3 : Deletes the 3rd contact shown in the current list.
+
+clear : Deletes all contacts.
+
+exit : Exits the app.
+
+Refer to the Features below for details of each command.
+
+---
+
+### Features
+
+Notes about command format:
+
+- Words in <> are parameters to be supplied by the user
+- Parameters must be in order
+- Date must be given in the format YYYY-MM-DD HH:mm (e.g. 2024-06-30 18:00)
+
+Introduction to Tasks:
+
+- There are 3 types of tasks: Todo, Deadline, Event
+- Todo a normal task without any date/time attached to it
+- Deadline A task that needs to be done by a specific date/time
+- Event A task that starts at a specific date/time and ends at a specific date/time
+
+All tasks have a description and a status indicating whether it is done or not.
+
+### Adding a  Task.
+
+Todo task: ```todo <task description>```
+Example: ```todo read book```
+
+Deadline task: ```deadline <task description> /by <deadline>```
+Example: ```deadline submit report /by 2026-06-30 1800```
+
+Event task: ```event <task description> /from <start> /to <end>```
+Example: ```event project meeting /from 2026-06-30 1800 /to 2026-06-30 1900```
+
+### Marking/Unmarking a Task
+
+Used when you have completed the task/uncompleted the task.
+Mark a task as done: ```mark <task number>```
+Example: ```mark 1```
+
+### Listing the Tasks
+
+List all tasks in the task list: ```list```
+
+### Remind Tasks
+
+Shows all tasks due/happening before a specified date: ```remind /by <date>```
+
+### Exiting the Program
+
+Either by command ```bye``` or by closing the GUI with the X button on top left of screen
+
+### Saving the Data
+
+All data is saved automatically in the file ```data/gene.txt``` in the same folder as the jar file.
+
+When program restarts, data is loaded from the file.
+
+---
+
+## Features Summary
 
 | Feature      | Command Format                                     | Example Usage                             |
 |--------------|----------------------------------------------------|-------------------------------------------|
@@ -29,86 +127,4 @@ organized and on top of their work, especially those familiar with CLI usage for
 
 ---
 
-## Quick Start
 
-### Task List
-
-- [x] Add tasks
-- [x] Mark/unmark tasks
-- [x] Delete tasks
-- [ ] Save/load tasks from file
-- [ ] GUI support
-
----
-
-## Usage Examples
-
-### Adding a Todo
-
-```sh
-todo read book
-```
-
-**Expected Output:**
-
-```
-Got it. I've added this task:
-  [T][ ] read book
-Now you have 1 task in the list.
-```
-
-### Adding a Deadline
-
-```sh
-deadline submit report /by 2024-06-30
-```
-
-**Expected Output:**
-
-```
-Got it. I've added this task:
-  [D][ ] submit report (by: 2024-06-30)
-Now you have 2 tasks in the list.
-```
-
-### Marking a Task as Done
-
-```sh
-mark 1
-```
-
-**Expected Output:**
-
-```
-Nice! I've marked this task as done:
-  [T][X] read book
-```
-
-### Listing All Tasks
-
-```sh
-list
-```
-
-**Expected Output:**
-
-```
-Here are the tasks in your list:
-1. [T][X] read book
-2. [D][ ] submit report (by: 2024-06-30)
-```
-
----
-
-## Advanced Commands
-
-- `remind <date>`: Show all tasks due/happening before a specific date.
-- `bye`: Exit the program.
-
----
-
-## Contact
-
-For feedback or issues, please open an issue on GitHub.
-
----

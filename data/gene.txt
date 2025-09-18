@@ -1,6 +1,0 @@
-TODO | 1 | go on a date
-DEADLINE| 0 | 2100 homework | 2025-10-10 1400
-TODO | 0 | run 
-TODO | 0 | bake
-TODO | 0 | play 
-TODO | 0 | gym 
