@@ -20,7 +20,7 @@ public class Parser {
      * command style
      *
      * @param input Input from the user at the CLI
-     * @return Intended command to be exexuted
+     * @return Intended command to be executed
      */
     public static Command parse(String input) {
         String[] inputArr = input.split(" ", 2);
@@ -74,12 +74,12 @@ public class Parser {
                 c = new AddCommand(new EventTask(fromSplit[0], toSplit[0], toSplit[1], false));
                 break;
             case REMIND:
-                String[] part = inputArr[1].split("/by", 2);
-                if (part[0].isEmpty()) {
+                String[] part = inputArr[1].split("/by ", 2);
+                if (part[1].isEmpty()) {
                     throw new CreateTaskException("AWWW MANNN Invalid remind format. Use: remind /by <date>");
                 }
-                System.out.println(part[0]);
-                c = new RemindCommand(part[0]);
+                System.out.println(part[1]);
+                c = new RemindCommand(part[1]);
                 break;
             default:
                 //Empty as it will definitely be one of the above 3 types

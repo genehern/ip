@@ -11,7 +11,7 @@ public class DeadlineTask extends Task {
         super(description, isDone);
         assert description != null;
         assert by != null;
-        this.by = this.dateTimeParser(by);
+        this.by = Task.dateTimeParser(by);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public boolean isReminderNeeded(LocalDateTime dt) {
-        return (dt.isEqual(this.by) || dt.isBefore(this.by));
+        return (this.by.isEqual(dt) || this.by.isBefore(dt));
     }
 
     @Override

@@ -4,14 +4,13 @@ import gene.TaskList;
 import gene.tasks.Task;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class RemindCommand extends Command {
     private final LocalDateTime cutOffDateTime;
 
     public RemindCommand(String s) {
         super(false);
-        this.cutOffDateTime = Task.dateTimeParser(s).with(LocalTime.MAX);
+        this.cutOffDateTime = Task.dateTimeParser(s);
     }
 
     @Override

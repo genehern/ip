@@ -24,7 +24,7 @@ public class EventTask extends Task {
 
     @Override
     public boolean isReminderNeeded(LocalDateTime dt) {
-        return (dt.isEqual(this.from) || dt.isBefore(this.from));
+        return this.to.isBefore(dt) || this.to.isEqual(dt);
     }
 
     @Override
