@@ -35,7 +35,7 @@ Copy the file to the folder you want to use as the home folder for your chatbot.
 Open a command terminal, cd into the folder you put the jar file in, and use the java -jar gene.jar command to
 run the application.
 
-A GUI similar to the below should appear in a few seconds.
+A GUI similar to the below should appear in a few seconds
 
 ---
 
