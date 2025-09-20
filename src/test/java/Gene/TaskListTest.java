@@ -9,14 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
     @Test
     public void testToString_emptyTasks() {
-        TaskList taskList = new TaskList(new Storage(""));
+        TaskList taskList = new TaskList(new Storage("/data/gene.txt"));
         String expected = Ui.SPACING + "You have no tasks in your list.";
         assertEquals(expected, taskList.toString());
     }
 
     @Test
     public void testToString_withTasks() {
-        TaskList taskList = new TaskList(new Storage(""));
+        TaskList taskList = new TaskList(new Storage("/data/gene.txt"));
         TodoTask task1 = new TodoTask("Task 1", false);
         TodoTask task2 = new TodoTask("Task 2", false);
         taskList.addTask(task1);
