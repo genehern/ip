@@ -9,6 +9,7 @@ import gene.tasks.TodoTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -69,11 +70,17 @@ public class Storage {
      *
      * @return Array List of Task to be used at start of program
      */
-    public ArrayList<Task> loadTasksFromFile() {
+    public ArrayList<Task> loadTasksFromFile() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(file);
+        File file = new File(fileName);
+
+        if (!file.exists()) {
+            file.getParentFile().mkdirs(); // ensure parent directories exist
+            file.createNewFile();
+            return tasks; // file is empty, return empty list
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Task task = parseStorageLine(line);
@@ -81,10 +88,8 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Database file not found: " + fileName);
         }
+
         return tasks;
     }
 

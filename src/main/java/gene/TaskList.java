@@ -3,6 +3,7 @@ package gene;
 import gene.exceptions.TaskOutOfRangeException;
 import gene.tasks.Task;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -11,8 +12,16 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     public TaskList(Storage storage) {
+        ArrayList<Task> tasks1;
         this.storage = storage;
-        tasks = this.storage.loadTasksFromFile();
+        try {
+            tasks1 = this.storage.loadTasksFromFile();
+        } catch (IOException e) {
+            tasks1 = new ArrayList<>();
+        }
+
+        tasks = tasks1;
+        
     }
 
     /**
