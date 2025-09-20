@@ -31,7 +31,6 @@ public class TaskList {
      */
     public String addTask(Task task) {
         tasks.add(task);
-        
         this.storage.saveTasksToFile(this.tasks);
         return String.format("%sGot it. I've added this task:\n%s  " +
                         " %s\n%sNow you have %d tasks in the list.",
