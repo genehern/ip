@@ -19,9 +19,7 @@ public class TaskList {
         } catch (IOException e) {
             tasks1 = new ArrayList<>();
         }
-
         tasks = tasks1;
-
     }
 
     /**
