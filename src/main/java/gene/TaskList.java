@@ -21,7 +21,6 @@ public class TaskList {
         }
 
         tasks = tasks1;
-        
     }
 
     /**
