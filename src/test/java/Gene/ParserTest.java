@@ -20,7 +20,7 @@ public class ParserTest {
     public void todo_success() {
         Command c = Parser.parse("todo cs2103 homework");
         Command actual = new AddCommand(new TodoTask("cs2103 homework", false));
-        assertEquals(c, actual);
+        assertEquals(c, actu
     }
 
     @Test
